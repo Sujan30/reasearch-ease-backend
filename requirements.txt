@@ -1,4 +1,8 @@
+flask
 faiss-cpu
+supabase
+pyjwt[crypto]
+python-dotenv
 numpy
 pypdf
 sentence-transformers

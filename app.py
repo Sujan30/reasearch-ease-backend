@@ -30,6 +30,7 @@ def get_current_documents():
             "status": 404
         }), 404
     
+    
     return jsonify({
         "current_file": os.path.basename(current_file_path),
         "status": 200,
@@ -103,24 +104,51 @@ def uploadFile():
 @app.route("/api/question/<prompt>")
 def ask_question(prompt):
     print("Received prompt:", prompt)
+
+    # Step 1: Auth
+    auth_header = request.headers.get('Authorization')
+    if not auth_header:
+        return jsonify({'error': 'Missing Authorization header'}), 401
+
+    token = auth_header.split(" ")[1]
+    user = sb1.verify_token(token)
+    if not user:
+        return jsonify({'error': 'Invalid or expired token'}), 401
+
+    user_id = user['sub']  # ✅ This is what you insert
+
+    # Step 2: Get document info
     global current_file_path
     if not current_file_path:
         return jsonify({
             "error": "No file uploaded. Please upload a file first.",
             "status": 400
         }), 400
+
+    # Generate a document_id from the file path if needed
+    # This ensures document_id is never null
+    document_id = str(hash(current_file_path))
     
-    # Pass the current file path to the RAG module for processing.
+    # Step 3: Generate answer
     answer = rag.ask(prompt, current_file_path)
     status_code = 200 if answer else 404
-    
-    sb1.table('queries').insert(
-        {
-            'question': prompt,
-            'answer': answer,
-            'created_at': 'now()'
-        }
-    ).execute()
+
+    # Step 4: Store query in Supabase
+    print("Inserting query:", prompt)
+    try:
+        sb1.table('queries').insert(
+            {
+                'question': prompt,
+                'answer': answer,
+                'user_id': user_id,
+                'document_id': document_id
+            }
+        ).execute()
+    except Exception as e:
+        print(f"Error storing query in database: {e}")
+        # Continue execution even if storage fails
+        # This way the user still gets their answer
+
     return jsonify({
         "user_query": prompt,
         "answer": answer,

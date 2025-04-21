@@ -56,12 +56,20 @@ def ask(user_query, file_path):
     """
     Process the uploaded file and generate an answer using the RAG method.
     """
+
     pdf_reader = pathToPaper(file_path)
     text_chunks = readingPages(pdf_reader)
+    if not pdf_reader or text_chunks:
+        print('error with pdf reader or text chunks')
+
     results, distances = query_faiss(
         user_query=user_query,
         text_chunks=text_chunks,
         model=model,
         top_k=3
     )
-    return response.generateResponse(user_query=user_query, retrieved_chunks=results)
+    response1 = response.generateResponse(user_query=user_query, retrieved_chunks=results)
+
+    if not response1:
+        print('error with response')
+    return response1

@@ -24,6 +24,7 @@ def generateResponse(user_query, retrieved_chunks):
     User Question: {user_query}
 
     Provide a well-structured and concise response.
+    You will also provide relevant citations from the research paper.
     """
     
     # Call GPT-4 (or GPT-3.5-turbo) API

@@ -17,11 +17,7 @@ SUPABASE_PROJECT_ID = os.environ.get('SUPABASE_PROJECT_ID', '')
 if not SUPABASE_URL or not SUPABASE_KEY:
     print("WARNING: Missing Supabase credentials. Set SUPABASE_URL and SUPABASE_KEY environment variables.")
     # Set defaults for development (these won't work in production)
-    if not SUPABASE_URL:
-        SUPABASE_URL = 'https://earawfmpubxijspazzuz.supabase.co'
-    if not SUPABASE_KEY:
-        SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhcmF3Zm1wdWJ4aWpzcGF6enV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyNzk2MDksImV4cCI6MjA2MDg1NTYwOX0.LF_bmnU7IL5X-cDCZe_uB2wGC7FkviaKbtnoSfF784g'
-
+    
 # Create Supabase client
 sb1 = create_client(SUPABASE_URL, SUPABASE_KEY)
 

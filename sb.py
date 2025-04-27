@@ -20,7 +20,7 @@ if not SUPABASE_URL or not SUPABASE_KEY:
     if not SUPABASE_URL:
         SUPABASE_URL = 'https://earawfmpubxijspazzuz.supabase.co'
     if not SUPABASE_KEY:
-        SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhcmF3Zm1wdWJ4aWpzcGF6enV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUxMzU3MjksImV4cCI6MjA2MDcxMTcyOX0.7p1mj--AP-jFonmHZs8P3FwwpinEqhh0S0YSKOpShoc'
+        SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhcmF3Zm1wdWJ4aWpzcGF6enV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyNzk2MDksImV4cCI6MjA2MDg1NTYwOX0.LF_bmnU7IL5X-cDCZe_uB2wGC7FkviaKbtnoSfF784g'
 
 # Create Supabase client
 sb1 = create_client(SUPABASE_URL, SUPABASE_KEY)
